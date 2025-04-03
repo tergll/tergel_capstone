@@ -1,0 +1,2 @@
+manim
+scikit-learn #needed for last.py in decision_tree
