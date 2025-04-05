@@ -5,7 +5,6 @@ import numpy as np
 
 class MongolianFoodScatter(Scene):
     def construct(self):
-        # Axes
         axes = Axes(
             x_range=[0, 1, 0.2],
             y_range=[0, 1, 0.2],
@@ -22,7 +21,6 @@ class MongolianFoodScatter(Scene):
 
         axes.move_to(ORIGIN)
 
-        # Axis labels (Mongolian)
         x_label = Text("Хоолны хэмжээ", font_size=24)
         x_label.next_to(axes.x_axis, DOWN, buff=0.4)
 
@@ -70,7 +68,6 @@ class MongolianFoodScatter(Scene):
             FadeIn(bansh_dots)
         )
 
-        # --- Legend ---
         legend_items = VGroup()
         for label, color in label_colors.items():
             dot = Dot(color=color, radius=0.12)

@@ -78,7 +78,6 @@ class RealDecisionTreeSplitScene(Scene):
             clf = DecisionTreeClassifier(max_depth=3, random_state=0)
             clf.fit(X, y)
 
-            # Axes
             axes = Axes(
                 x_range=[0, 1, 0.2],
                 y_range=[0, 1, 0.2],
@@ -90,13 +89,11 @@ class RealDecisionTreeSplitScene(Scene):
             x_label = Text("Хэмжээ", font_size=20).next_to(axes.x_axis, DOWN, buff=0.4)
             y_label = Text("Шаргал", font_size=20).next_to(axes.y_axis, LEFT, buff=0.4)
 
-            # Title
+        
             title = Text(titles[i], font_size=28).to_edge(UP)
 
-            # Plot class regions
             class_regions = self.plot_boundaries(axes, clf, label_colors)
 
-            # Plot points
             points = self.plot_data_points(axes, X, y, label_colors)
 
             self.play(FadeIn(axes), Write(x_label), Write(y_label), Write(title))

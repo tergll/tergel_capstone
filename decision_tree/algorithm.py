@@ -1,40 +1,35 @@
-%%manim -qm EntropySplitScene
-
 from manim import *
 
 class EntropySplitScene(Scene):
     def construct(self):
-        # STEP 1: Show parent node (original data)
+        # Create parent node
         parent_circle = Circle(radius=1.2, color=WHITE).move_to(UP * 2)
         self.play(Create(parent_circle))
 
+        # Add data points
         data_points = VGroup()
-        colors = [RED, RED, RED, BLUE, BLUE, BLUE]  # Perfect separation possible
+        colors = [RED, RED, RED, BLUE, BLUE, BLUE]
         for i, color in enumerate(colors):
             angle = i * 2 * PI / len(colors)
             dot = Dot(radius=0.15, color=color)
-            # ⛔ too large: 1.3 * np.array(...)
-            # ✅ use 0.9 instead (75% of 1.2 radius)
             dot.move_to(parent_circle.get_center() + 0.9 * np.array([np.cos(angle), np.sin(angle), 0]))
             data_points.add(dot)
 
         self.play(FadeIn(data_points))
         self.wait(0.5)
 
-        # Show parent entropy
+        # Show entropy calculation
         entropy_text = Text("Entropy = 0.92", font_size=28, color=WHITE)
         entropy_text.next_to(parent_circle, DOWN, buff=0.5)
         self.play(Write(entropy_text))
         self.wait(1)
 
-    
-
-        # Create child circles
+        # Create child nodes
         left_circle = Circle(radius=1.2, color=WHITE).move_to(LEFT * 3 + DOWN * 1.2)
         right_circle = Circle(radius=1.2, color=WHITE).move_to(RIGHT * 3 + DOWN * 1.2)
         self.play(Create(left_circle), Create(right_circle))
 
-        # Move REDs to left, BLUEs to right
+        # Split points into children
         for i in range(3):
             angle = i * 2 * PI / 3
             target = left_circle.get_center() + 0.7 * np.array([np.cos(angle), np.sin(angle), 0])
@@ -47,7 +42,7 @@ class EntropySplitScene(Scene):
 
         self.wait(0.5)
 
-        # STEP 3: Show entropies after split
+        # Show child entropies
         left_entropy = Text("Entropy = 0", font_size=24, color=WHITE)
         right_entropy = Text("Entropy = 0", font_size=24, color=WHITE)
         left_entropy.next_to(left_circle, DOWN, buff=0.4)
@@ -55,6 +50,7 @@ class EntropySplitScene(Scene):
         self.play(Write(left_entropy), Write(right_entropy))
         self.wait(1)
 
+        # Show weighted entropy
         weighted_result = MathTex(
             r"H = \frac{3}{6} \cdot 0 + \frac{3}{6} \cdot 0 = 0",
             font_size=34,
@@ -66,7 +62,7 @@ class EntropySplitScene(Scene):
         self.play(Write(weighted_result))
         self.wait(1)
 
-        # STEP 5: Compute and display Info Gain
+        # Show information gain
         ig_text = Text(" Мэдээллийн ашиг = 0.92 - 0 = 0.92", font_size=30, color=YELLOW)
         ig_text.next_to(weighted_result, DOWN*2.3, buff=0.5)
         self.play(Write(ig_text))

@@ -4,18 +4,12 @@ from manim import *
 
 class EntropyFormulaScene(Scene):
     def construct(self):
-        # Set background color to match the image
-
-        # Entropy formula in LaTeX
+       
         formula = MathTex(
             r"H = - \sum_{i=1}^{n} p_i \log_{2}(p_i)",
             font_size=60,
             color=WHITE
         )
-
-        # Center the formula
         formula.move_to(ORIGIN)
-
-        # Animate
         self.play(Write(formula))
         self.wait(2)
